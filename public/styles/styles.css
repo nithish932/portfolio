@@ -1089,7 +1089,7 @@ transform: skewX(-15deg);
 }
 @media (max-width: 768px) {
   .portfolio-details .portfolio-details-slider img {
-      width: 80%;
+      width: 100%;
       height: 400px;
   } 
    .breadcrumbs .d-flex {
