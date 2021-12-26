@@ -253,7 +253,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #hero .hero-container {
   position: relative;
-  padding-top: 5%;
+  padding-top: 3%;
   padding-left: 2%;
   z-index: 2;
   width:55%;
