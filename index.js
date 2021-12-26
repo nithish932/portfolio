@@ -13,13 +13,6 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 var projectsData=[];
 
-function getProjects() {
-  request("https://portfolio-data-da5da-default-rtdb.firebaseio.com/projects.json", { json: true }, (err, res, body) => {
-    if (err) { return console.log(err); }
-    projectsData=body;
-  });
-}
-
 function sendmail(subject, message){
   
   var transporter = nodemailer.createTransport({
@@ -48,7 +41,11 @@ function sendmail(subject, message){
 
 
 app.get('/',function (req, res) {
-  getProjects();
+  request("https://portfolio-data-da5da-default-rtdb.firebaseio.com/projects.json", { json: true }, (err, res, body) => {
+    if (err) { return console.log(err); }
+    projectsData=body;
+  });
+  
   res.render('home.ejs', { projects: projectsData})
 });
 
@@ -72,5 +69,5 @@ app.post("/send",function (req, res) {
   sendmail(subject, message_tosend);
   res.render('success.ejs')
 });
-
-app.listen(3000, () => console.log(`app listening on port ${3000}!`))
+var port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`app listening on port ${3000}!`))
