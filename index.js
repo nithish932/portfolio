@@ -5,13 +5,16 @@ const request = require("request");
 const nodemailer = require('nodemailer');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const https = require('https');
+const { json } = require("body-parser");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
-var projectsData=[];
+
+var parsed=[];
 
 function sendmail(subject, message){
   
@@ -38,15 +41,21 @@ function sendmail(subject, message){
   });
 }
 
+ 
 
 
-app.get('/',function (req, res) {
-  request("https://portfolio-data-da5da-default-rtdb.firebaseio.com/projects.json", { json: true }, (err, res, body) => {
-    if (err) { return console.log(err); }
-    projectsData=body;
+app.get('/',async function (req, ress) {
+
+  await https.get('https://portfolio-data-da5da-default-rtdb.firebaseio.com/projects.json',async res=>{
+    let body =[];
+    res.on('data', chunk => {
+      body.push(chunk);
+    });
+    res.on('end', async() => {
+      parsed =await JSON.parse(Buffer.concat(body));
+      ress.render('home.ejs', { projects:parsed})
+    })
   });
-  
-  res.render('home.ejs', { projects: projectsData})
 });
 
 app.get('/projects/:project', function(req, res) {
@@ -69,5 +78,5 @@ app.post("/send",function (req, res) {
   sendmail(subject, message_tosend);
   res.render('success.ejs')
 });
-var port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`app listening on port ${3000}!`))
+
+app.listen(3000, () => console.log(`app listening on port ${3000}!`))
