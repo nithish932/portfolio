@@ -56,7 +56,6 @@ app.get('/',async function (req, ress) {
       ress.render('home.ejs', { projects:parsed})
     })
   });
-  ress.render('home.ejs', { projects:parsed})
 });
 
 app.get('/projects/:project', function(req, res) {
