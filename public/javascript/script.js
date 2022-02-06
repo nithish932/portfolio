@@ -248,6 +248,7 @@
         mirror: false
       })
     });
+    
 
     document.addEventListener('touchstart', () => {
       AOS.init({
@@ -258,11 +259,16 @@
       })
     });
   
+    window.addEventListener('load', () => {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+      })
+    });
+    
   })()
 
-  // document.querySelector(".portfolio-container").addEventListener('scroll',()=>{
-  //   var count= 1+count;
-  //   console.log(count);
-  //   return count;
-  // })
+  // document.querySelector(".portfolio-container").
   
