@@ -61,7 +61,7 @@ app.get('/',async function (req, ress) {
 app.get('/projects/:project', function(req, res) {
   const req_project = _.lowerCase(req.params.project);
   
-  projectsData.forEach( function (project){
+  parsed.forEach( function (project){
     const currentProject =_.lowerCase(project.title)
     if(req_project===currentProject){
         res.render('project-details.ejs',{project:project})
