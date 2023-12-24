@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.example.fests",
+    "sha256_cert_fingerprints":
+    ["D3:DB:0A:B1:F0:03:FF:6D:61:AD:EB:0F:6E:CD:87:71:23:51:9E:7C:7D:03:5A:23:3C:4E:97:78:BA:6D:74:19"]
+  }
+}]
