@@ -58,14 +58,23 @@ app.get('/',async function (req, ress) {
   });
 });
 
-app.get('/projects/:project', function(req, res) {
+app.get('/projects/:project', function(req, ress) {
   const req_project = _.lowerCase(req.params.project);
   
-  parsed.forEach( function (project){
-    const currentProject =_.lowerCase(project.title)
-    if(req_project===currentProject){
-        res.render('project-details.ejs',{project:project})
-    }
+  https.get('https://portfolio-data-da5da-default-rtdb.firebaseio.com/projects.json',async res=>{
+    let body =[];
+    res.on('data', chunk => {
+      body.push(chunk);
+    });
+    res.on('end', async() => {
+      parsed =await JSON.parse(Buffer.concat(body));
+      parsed.forEach( function (project){
+        const currentProject =_.lowerCase(project.title)
+        if(req_project==currentProject){
+            ress.render('project-details.ejs',{project:project})
+        }
+      });
+    })
   });
 });
 
@@ -80,4 +89,4 @@ app.post("/send",function (req, res) {
 });
 
 var port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`app listening on port ${3000}!`))
+app.listen(port, () => console.log(`app listening on port ${port}!`))
